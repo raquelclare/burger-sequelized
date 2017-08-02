@@ -1,0 +1,49 @@
+<h1>Eat a burger!</h1>
+<div class="row">
+<div class="col s12" id="img">
+<img src="/assets/img/burger3.jpg">
+</div>
+</div>
+<div class="container">
+    <div class="row">
+        <!-- Div for burgers available for eating -->
+        <div class="col s6" id="burgers-available">
+            <h2>Burgers ready to be eaten</h2>
+            <ul>
+                {{#each burgers}} {{#unless this.devoured}}
+                <li>
+                    {{this.burger_name}}
+                    <form action="/{{this.id}}?_method=PUT" method="POST">
+                        <input type="hidden" name="devoured" value="true">
+                        <button class="waves-effect waves-light btn red" type="submit">DEVOUR!</button>
+                    </form>
+                </li>
+                {{/unless}} {{/each}}
+            </ul>
+        </div>
+        <!-- Div for burgers eaten -->
+        <div class="col s6" id="burgers-eaten">
+            <h2>Burgers eaten</h2>
+            <ul>
+                {{#each burgers}} {{#if this.devoured}}
+                <li>
+                    {{this.burger_name}}
+                </li>
+                {{/if}} {{/each}}
+            </ul>
+        </div>
+    </div> 
+    <!-- closing row div -->
+    <!-- Adding a new burger -->
+    <div class="row" id="form">
+        <h3>Add a Burger</h3>
+        <form class="create-update-form" action="/" method="POST">
+            <div class="form-group">
+                <input type="text" name="burger_name" placeholder="Enter a burger you want to eat and click the 'Add Burger' button" required>
+            </div>
+            <button class="waves-effect waves-light btn btn-large green" type="submit">Add Burger</button>
+        </form>
+    </div>
+    <!-- closing row div -->
+</div>
+<!-- closing container div -->
