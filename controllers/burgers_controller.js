@@ -17,6 +17,7 @@ sequelizeConnection.sync({ force: true });
 // GET route
 router.get("/", function(req, res) {
 	// findAll returns all entries for a table (bugers) when used with no options
+    // Getting an ERROR here "Cannot read property 'findAll' of undefined"
 	db.Burger.findAll({}).then(function(dbBurger) {
 
 		var burgerObj = {

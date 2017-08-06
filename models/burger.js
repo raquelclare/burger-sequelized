@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
         devoured: {
             type: DataTypes.BOOLEAN,
             // Add a flag for devoured so that it's false by default if not given a value
-            default: false
+            defaultValue: false
         }
     });
     return Burger;
