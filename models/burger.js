@@ -1,6 +1,6 @@
 // My Sequelize Burger model
 module.exports = function(sequelize, DataTypes) {
-    var Burger = sequelize.define("Burger", {
+    var Burger = sequelize.define("burgers", {
         burger_name: {
             type: DataTypes.STRING, 
             // Add a flag for the burger_name attribute to prevent this field from being null
