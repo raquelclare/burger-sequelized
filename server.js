@@ -5,14 +5,24 @@ var methodOverride = require("method-override");
 
 var port = process.env.PORT || 3000;
 
+// Requiring our models for syncing
+var db = require("./models");
+
+// Setting up the Express app
 var app = express();
 
 // Serve static content for the app from the "public" directory in the application
 app.use(express.static("public"));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+// Body Parser
+// Setting up Express app to handle data parsing
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-// Override with POST having ?_method=DELETE
+// Method Override 
+// Overrides with POST having ?_method=DELETE
 app.use(methodOverride("_method"));
 
 // Set handlebars
@@ -26,4 +36,10 @@ var routes = require("./controllers/burgers_controller.js");
 
 app.use("/", routes);
 
-app.listen(port);
+// Syncing our sequelize models and then starting our Express app
+// =============================================================
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});
